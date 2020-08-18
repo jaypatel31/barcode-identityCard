@@ -1,136 +1,60 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
 <html>
-<head>
-<title>How to Create Barcode Generator using PHP</title>
-<style>
-body {
-    width: 550px;
-    font-family: Arial;
-    font-size: 0.95em;
-    color: #212121;
-}
-
-#frmBarcodeGenerator {
-    padding: 30px;
-    border: #E0E0E0 1px solid;
-    border-radius: 3px;
-}
-
-.input-field {
-    padding: 10px;
-    border: #E0E0E0 1px solid;
-    border-radius: 3px;
-    width: 250px;
-    margin: 6px 0px 8px 0px;
-}
-
-.submit-button {
-    background: #ff6a00;
-    border: #f16501 1px solid;
-    color: #FFF;
-    padding: 10px 20px;
-    border-radius: 3px;
-    margin-top: 8px;
-}
-
-.form-row {
-    margin-bottom: 15px;
-}
-
-.result-heading {
-    padding: 10px 0px 2px 0px;
-    border-bottom: #333 1px solid;
-    margin-bottom: 20px;
-}
-
-#validation-info {
-    display: none;
-    padding: 10px 20px;
-    background: #f5c7c8;
-    border: #e6bbbd 1px solid;
-    border-radius: 3px;
-}
-</style>
+<head><title>Encode Workshop Registration</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
-    <form method="post" name="frmBarcodeGenerator" id="frmBarcodeGenerator"
-        onSubmit="return validate();">
-        <div class="form-row">
-            MRP:
-            <div><input type="text" name="mrp"
-                id="mrp" class="input-field" /></div>
-        </div>
-        <div class="form-row">
-            MFG Date: 
-            <div><input type="date" name="mfg_date"
-                id="mfg_date" class="input-field" /></div>
-        </div>
-        <div class="form-row">
-            EXP Date: 
-            <div><input type="date" name="exp_date"
-                id="exp_date" class="input-field" /></div>
-        </div>
 
-        <div>
-            <input type="submit" name="generate" class="submit-button"
-                value="Generate Barcode" />
-        </div>
-    </form>  
-    
-    <div id="validation-info"></div>
-    <script src="jquery-3.2.1.min.js"></script>
-    <script>
-    function validate() {
-    	var valid = true;
-        var message;
-    	    
-        $("#validation-info").hide();
-    	$("#validation-info").html();
-        if($("#mrp").val() == "") {
-            message = "All fields are required";
-            	valid = false;
-        } else if(!$.isNumeric($("#mrp").val())) {
-            	message = "MRP should be in numbers";
-            	valid = false;
-        } else if($("#mfg_date").val() == "") {
-            message = "All fields are required";
-            	valid = false;
-        } else if($("#exp_date").val() == "") {
-                message = "All fields are required";
-                valid = false;
-        }
-        if(valid == false) {
-        	   $("#validation-info").show();
-           $("#validation-info").html(message);
-        }
-        return valid;
-    }
-</script>
-</body>
-</html>
-<?php
-if (! empty($_POST["generate"])) {
-    require ('../vendor5/autoload.php');
-    $barcode = new \Com\Tecnick\Barcode\Barcode();
-    $targetPath = "barcode/";
-    
-    if (! is_dir($targetPath)) {
-        mkdir($targetPath, 0777, true);
-    }
-    $MRP = $_POST["mrp"];
-    $MFGDate = strtotime($_POST["mfg_date"]);
-    $EXPDate = strtotime($_POST["exp_date"]);
-    $productData = "098{$MRP}10{$MFGDate}55{$EXPDate}";
-    $barcode = new \Com\Tecnick\Barcode\Barcode();
-    $bobj = $barcode->getBarcodeObj('C128C', "{$productData}", 450, 70, 'black', array(0, 0, 0, 0));
-    
-    
-    $imageData = $bobj->getPngData();
-    $timestamp = time();
-    
-    file_put_contents($targetPath . $timestamp . '.png', $imageData);
-    ?>
-<div class="result-heading">Output:</div>
-<img src="<?php echo $targetPath . $timestamp ; ?>.png" >
-<?php
+<body class="bg-light">
+<div class="jumbotron text-center text-white bg-primary">
+<img id="logo" class="pb-1" src="logo.jpg" alt="LOGO">
+<h2 id="heading">Registration Form</h2>
+</div>
+
+<div class="container ">
+<?php 
+if(isset($_SESSION['error'])){
+		echo "<p style='color:red'>".$_SESSION['error']."</p>";
+		$_SESSION['error']="";
 }
 ?>
+<form action="Controller.php" method="post" enctype="multipart/form-data">
+  <label for="fname">First name : </label>
+  <input type="text" id="fname" name="fname" required placeholder="Magnus"><br><br>
+  <label for="lname">Last name : </label>
+  <input type="text" id="lname" name="lname" required placeholder="Carlsen"><br><br>
+   <label for="lname">Email : </label>
+  <input type="email" id="lname" name="email" required placeholder="abc@gmail.com"><br><br>
+  <label for="ph">Mobile Number : </label>
+  <input type="text" id="ph" name="phone" required><br><br>
+  <label for="roll">Roll Number : </label>
+  <input type="text" id="roll" name="enroll" required placeholder="19BITXX"><br><br>
+  <label for="branch">Branch :</label>
+  <select id="branch" name="branch">
+	<option value="Computer">Computer</option>
+	<option value="ICT">ICT</option>
+	<option value="Chemical">Chemical</option>
+	<option value="Mechanical">Mechanical</option>
+	<option value="Petroleum">Petroleum</option>
+  </select><br><br>
+   <label for="branch">Semester :</label>
+  <select id="branch" name="sem">
+	<option value="3">3</option>
+	<option value="5">5</option>
+	<option value="7">7</option>
+  </select><br><br>
+  <label for="img">Image : </label>
+  <input type="file" id="img" name="filename"  required><br><br>
+  <input type="submit" class="btn btn-primary" name="submit" value="Submit">
+</form> 
+</div>
+</body>
+</html>
