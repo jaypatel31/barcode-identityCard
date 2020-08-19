@@ -40,9 +40,12 @@ if(isset($_POST['submit'])){
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <script src="https://kit.fontawesome.com/e55efccdcb.js" crossorigin="anonymous"></script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <style>
+  <link rel="stylesheet" href="css/main.css">
+		<style>
             body {font-family:Arial, Helvetica, sans-serif;}
             table {border: 1px solid black;}
             th {border: 1px solid black;padding:4px;background-barcode:cornsilk;}
@@ -56,17 +59,23 @@ if(isset($_POST['submit'])){
 			#heading{
 				display:inline-block;
 			}
+			.aqua{
+				color:aqua;
+			}
         </style>
+		<script src="js/main.js"></script>
 </head>
 <body class="bg-light">
 <div class="jumbotron text-center text-white bg-primary">
 <img id="logo" class="pb-1" src="logo.jpg" alt="LOGO">
 <h2 id="heading">IDENTITY CARD</h2>
+<i onclick="change(event)" class="fas fa-moon fa-2x icon1" id="two"></i>
+  	<i onclick="change(event)" class="fas fa-sun fa-2x icon1" ></i>
 </div>
 <?php
 if($_SERVER['REQUEST_METHOD']=='POST'){
 	ob_start();
-    require('../fpdf/fpdf.php');
+    require('fpdf/fpdf.php');
     $pdf = new FPDF('L','mm',array(250,150));
     $pdf->AddPage();
 	$pdf->SetFont('Courier','B',40);
@@ -94,21 +103,22 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
 <?php
 if($_SERVER['REQUEST_METHOD']=='POST'){
-  require ('../vendor5/autoload.php');
+  require ('vendor5/autoload.php');
 $barcode = new \Com\Tecnick\Barcode\Barcode();
 $examples = '<h3>Linear</h3>'."\n";
 $type='C128C';
 $code = '31082001';
  $bobj = $barcode->getBarcodeObj($type, $code, -3, -30, 'black', array(0, 0, 0, 0));
  $examples .= '<h4>[<span>'.$type.'</span>] '.$code.'</h4><p style="font-family:monospace;">'.$bobj->getHtmlDiv().'</p>'."\n";
-$bobj = $barcode->getBarcodeObj('QRCODE,H', 'http://b52deb8b25f5.ngrok.io/PHPEX/Encode/save/'.$Roll.'.pdf', -4, -4, 'black', array(-2, -2, -2, -2))->setBackgroundColor('#f0f0f0');
+$bobj = $barcode->getBarcodeObj('QRCODE,H', 'https://encoderegistration.000webhostapp.com/save/'.$Roll.'.pdf', -4, -4, 'black', array(-2, -2, -2, -2))->setBackgroundColor('#f0f0f0');
 
 echo "
-
+		<div class='container'>
         <h2>Output Formats</h2>
 		<h3>Scan Code To Download Your IDENTITY Card</h3>
        <h3>Your QRCODE</h3>
         <p><img alt=\"Embedded Image\" src=\"data:image/png;base64,".base64_encode($bobj->getPngData())."\" /></p>
+		</div>
     </body>
 </html>
 ";  

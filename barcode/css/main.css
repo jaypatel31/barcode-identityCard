@@ -13,6 +13,34 @@
 		border-radius:8px;
 		outline:none;
 	}
+	.icon1{
+  		background-color: white;
+  		position: absolute;
+  		border-radius:50%;
+  		padding: 5px;
+  		cursor: pointer;
+  		margin-bottom: 10px;
+  		bottom: 90%;
+  		left:5%;
+		color:black;
+  	}
+  	.icon1:hover{
+  		background-color: black;
+  		color:white;
+  		transition: 0.6s ease;
+  	}
+  	.hide{
+  		display:none;
+  	}
+  	#two{
+  		background-color: black;
+  		color: white;
+  	}
+  	#two:hover{
+  		background-color: white;
+  		color:black;
+  		transition: 0.6s ease;
+  	}
 	@media only screen and (max-width:992px){
 		label{
 			width:25%;

@@ -8,6 +8,7 @@ session_start();
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script src="https://kit.fontawesome.com/e55efccdcb.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
    <link rel="stylesheet" href="css/main.css">
@@ -17,6 +18,8 @@ session_start();
 <div class="jumbotron text-center text-white bg-primary">
 <img id="logo" class="pb-1" src="logo.jpg" alt="LOGO">
 <h2 id="heading">Registration Form</h2>
+<i onclick="change(event)" class="fas fa-moon fa-2x icon1" id="two"></i>
+  	<i onclick="change(event)" class="fas fa-sun fa-2x icon1" ></i>
 </div>
 
 <div class="container ">
@@ -57,4 +60,5 @@ if(isset($_SESSION['error'])){
 </form> 
 </div>
 </body>
+<script src="js/main.js"></script>
 </html>
