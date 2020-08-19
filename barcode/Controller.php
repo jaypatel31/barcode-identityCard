@@ -1,5 +1,6 @@
 <?php
 session_start();
+// VALIDATION OF USER INPUT IS DONE IN THIS PART.
 if(isset($_POST['submit'])){
 	$Fname = htmlentities($_POST['fname']);
 	$Lname = htmlentities($_POST['lname']);
@@ -65,6 +66,7 @@ if(isset($_POST['submit'])){
         </style>
 		<script src="js/main.js"></script>
 </head>
+<!--MAIN BODY-->
 <body class="bg-light">
 <div class="jumbotron text-center text-white bg-primary">
 <img id="logo" class="pb-1" src="logo.jpg" alt="LOGO">
@@ -73,6 +75,7 @@ if(isset($_POST['submit'])){
   	<i onclick="change(event)" class="fas fa-sun fa-2x icon1" ></i>
 </div>
 <?php
+// USING FPDF LIBRARY FOR MAKING PDF FILE
 if($_SERVER['REQUEST_METHOD']=='POST'){
 	ob_start();
     require('fpdf/fpdf.php');
@@ -99,9 +102,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $pdf->Output('F','save/'.$Roll.'.pdf');
     ob_end_flush();
 }
-?>
 
+?>
 <?php
+//// USING TECNICK BARCODE LIBRARY FOR GENERATING BARCODE
 if($_SERVER['REQUEST_METHOD']=='POST'){
   require ('vendor5/autoload.php');
 $barcode = new \Com\Tecnick\Barcode\Barcode();

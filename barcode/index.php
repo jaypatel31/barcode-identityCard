@@ -13,7 +13,7 @@ session_start();
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
    <link rel="stylesheet" href="css/main.css">
 </head>
-
+<!--HEADING-->
 <body class="bg-light">
 <div class="jumbotron text-center text-white bg-primary">
 <img id="logo" class="pb-1" src="logo.jpg" alt="LOGO">
@@ -21,9 +21,11 @@ session_start();
 <i onclick="change(event)" class="fas fa-moon fa-2x icon1" id="two"></i>
   	<i onclick="change(event)" class="fas fa-sun fa-2x icon1" ></i>
 </div>
-
+<!--HEADING ENDS-->
+<!--MAIN BODY-->
 <div class="container ">
 <?php 
+// IF CONTROLLER PAGE WILL RETURN ANY ERROR
 if(isset($_SESSION['error'])){
 		echo "<p style='color:red'>".$_SESSION['error']."</p>";
 		$_SESSION['error']="";
@@ -59,6 +61,7 @@ if(isset($_SESSION['error'])){
   <input type="submit" class="btn btn-primary" name="submit" value="Submit">
 </form> 
 </div>
+<!--MAIN BODY ENDS-->
 </body>
 <script src="js/main.js"></script>
 </html>
